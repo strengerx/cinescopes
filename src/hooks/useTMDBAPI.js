@@ -15,6 +15,7 @@ export default function useTMDBAPI(endpoint) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        if (!endpoint) return;
         const fetchData = async () => {
             setLoading(true); setError(null); setData(null);
             try {

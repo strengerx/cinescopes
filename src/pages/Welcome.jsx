@@ -63,7 +63,7 @@ export default function Welcome() {
                     to="/explore-movies"
                     className="inline-flex items-center gap-2 text-red-300 hover:text-white transition-all group text-lg font-medium hover:scale-105 mt-6"
                 >
-                    <span className="group-hover:underline">Explore Movies</span>
+                    <span className="group-hover:underline uppercase font-extralight">Explore Movies</span>
                     <CgArrowLongRight className="group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
             </div>
