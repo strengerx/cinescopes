@@ -96,7 +96,7 @@ export default function Movies() {
                             <div className="overflow-hidden rounded-xl shadow-md">
                                 <img
                                     loading="lazy"
-                                    className="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300"
+                                    className="w-full aspect-2/3 object-cover group-hover:scale-105 transition-transform duration-300"
                                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                     alt={movie.title}
                                 />
