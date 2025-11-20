@@ -69,6 +69,7 @@ export default function Movies() {
                 {/* Category Selector */}
                 <div className="flex justify-end items-center py-6">
                     <select
+                        name="category"
                         className="px-4 py-2 text-red-600 bg-transparent border-none outline-none cursor-pointer"
                         value={endpoint}
                         onChange={(e) => setEndPoint(e.target.value)}

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
 const BASE_API_URL = import.meta.env.VITE_TMDB_BASE_URI;
 
 const options = {
@@ -14,26 +15,48 @@ export default function useTMDBAPI(endpoint) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const currentEndpointRef = useRef(endpoint);
+
     useEffect(() => {
-        if (!endpoint) return;
+        if (!endpoint) { setLoading(false); setError(null); setData(null); return; }
+
+        currentEndpointRef.current = endpoint;
+
+        const controller = new AbortController();
+        const { signal } = controller;
+
         const fetchData = async () => {
             setLoading(true); setError(null); setData(null);
+
             try {
-                const response = await fetch(`${BASE_API_URL}${endpoint}`, options);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                const response = await fetch(`${BASE_API_URL}${endpoint}`, { ...options, signal });
+
+                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
+
+                const result = await response.json();
+
+                if (currentEndpointRef.current === endpoint) {
+                    setData(result?.results || result);
+                    setError(null);
                 }
-                const data = await response.json();
-                setData(data?.results || data);
             } catch (err) {
-                setError(err.message);
+                if (err.name === 'AbortError') return;
+
+                if (currentEndpointRef.current === endpoint) {
+                    setError(err.message);
+                    setData(null);
+                }
             } finally {
-                setLoading(false);
+                if (currentEndpointRef.current === endpoint) {
+                    setLoading(false);
+                }
             }
-        }
+        };
 
         fetchData();
+
+        return () => { controller.abort(); }
     }, [endpoint]);
 
-    return ({ data, loading, error })
+    return { data, loading, error };
 }

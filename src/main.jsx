@@ -4,10 +4,8 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "./context/ContecxtProvider.jsx";
 
-createRoot(document.getElementById("root")).render(
-	<BrowserRouter>
-		<ThemeProvider>
-			<App />
-		</ThemeProvider>
-	</BrowserRouter>
-);
+createRoot(document.getElementById("root")).render(<BrowserRouter>
+	<ThemeProvider>
+		<App />
+	</ThemeProvider>
+</BrowserRouter>);
