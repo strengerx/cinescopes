@@ -10,7 +10,7 @@ const Welcome = lazy(() => import("./pages/Welcome"));
 const DraftMovieDetails = lazy(() => import("./draftpages/DraftMovieDetails"));
 const WeatherApp = lazy(() => import("./draftpages/WeatherApp"));
 
-function App() {
+export default function App() {
 	const { theme, toggleTheme } = useTheme();
 
 	return (<div className="min-h-screen bg-white dark:bg-gray-950 text-black dark:text-white transition-colors duration-300">
@@ -37,5 +37,3 @@ function App() {
 		</Suspense>
 	</div>);
 }
-
-export default App;
